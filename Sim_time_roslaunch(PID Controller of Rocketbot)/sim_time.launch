@@ -1,0 +1,35 @@
+<launch>
+    <param name="use_sim_time" value="true" />
+
+	<node name="sim_time" pkg="pid" type="sim_time" output="screen" >
+      <param name="sim_speedup" value="3" />
+    </node>
+
+    <node name="temp_pid" pkg="pid" type="controller" output="screen" >
+      <param name="Kp" value="8.0" />
+      <param name="Ki" value="2.0" />
+      <param name="Kd" value="20.0" />
+      <param name="upper_limit" value="10000" />
+      <param name="lower_limit" value="-10000" />
+      <param name="windup_limit" value="100" />
+    </node>
+
+    <!--
+    <node name="temp_sim_node" pkg="pid" type="plant_sim" output="screen" >
+      <param name="plant_order" value="2" />
+    </node>
+    -->
+	
+    <node name="rocket_bot_node" pkg="rocketbot" type="rocket_bot.py" output="screen" >
+    </node>
+
+    <node name="translate_node" pkg="rocketbot" type="translater.py" output="screen" >
+    </node>
+
+    <node name="setpoint_node" pkg="setpoint_opgave" type="setpoint.py" output="screen" />
+
+    <!-- rqt_plot is a resource hog, so if you're seeing high CPU usage, don't launch rqt_plot  -->
+    <node name="rqt_plot" pkg="rqt_plot" type="rqt_plot" 
+    args="/control_effort/data /state/data /setpoint/data" />
+
+</launch>
