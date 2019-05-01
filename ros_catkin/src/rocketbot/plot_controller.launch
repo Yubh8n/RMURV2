@@ -1,0 +1,7 @@
+<launch>
+  <node name="rocketsimulator" pkg="rocketbot" type="rocket_bot.py" output="screen"/>
+  <node name="rocketcontroller" pkg="rocketbot" type="thruster_controller.py" output="screen"/>
+  <node name="pos_vel_plot" pkg="rqt_plot" type="rqt_plot" args="/location/y" />
+
+  <!--<node name="pos_vel_plot" pkg="rqt_plot" type="rqt_plot" args="/rocketcontroller/thrust_controller/feedback /rocketcontroller/thrust_controller/error" />-->
+</launch>

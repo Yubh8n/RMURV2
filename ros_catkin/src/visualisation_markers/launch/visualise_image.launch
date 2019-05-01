@@ -1,0 +1,22 @@
+<launch>
+  <param name="use_sim_time" value="false" />
+  <node pkg="rqt_image_view" type="rqt_image_view" name="input_image_view" args="image:=/camera/image_raw"/>
+
+  <include file="$(find video_stream_opencv)/launch/camera.launch" >
+        <arg name="video_stream_provider" value="$(find visualisation_markers)/res/example_video.mp4" />
+
+        <!-- set buffer queue size of frame capturing to -->
+        <arg name="buffer_queue_size" value="100" />
+        <!-- throttling the querying of frames to -->
+        <arg name="fps" value="15" />
+        <!-- setting frame_id -->
+        <arg name="frame_id" value="videostream_frame" />
+   </include>
+  
+  <node pkg="object_publisher" type="example_object_publisher.py" name="example_object_publisher"/>
+  
+  <node pkg="visualisation_markers" type="image_with_markers.py" name="viz_markers" output="screen">
+	<remap from="image_raw" to="/camera/image_raw"/>
+  </node>
+
+</launch>

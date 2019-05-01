@@ -1,0 +1,7 @@
+logs/
+devel/
+build/
+.catkin_tools/
+src/mav_comm/
+src/mavlink/
+src/video_stabilizer_node/

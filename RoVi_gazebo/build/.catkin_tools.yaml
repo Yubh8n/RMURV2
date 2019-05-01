@@ -1,0 +1,6 @@
+devel_space: /home/chris/RoVi_gazebo/devel
+install: false
+install_space: /home/chris/RoVi_gazebo/install
+profile: default
+source_space: /home/chris/RoVi_gazebo/src
+workspace: /home/chris/RoVi_gazebo

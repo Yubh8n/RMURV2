@@ -1,0 +1,5 @@
+rotors_simulator/rotors_description
+/home/chris/RoVi_gazebo/devel/.private/rotors_description/cmake.lock /home/chris/RoVi_gazebo/devel/./cmake.lock
+/home/chris/RoVi_gazebo/devel/.private/rotors_description/lib/pkgconfig/rotors_description.pc /home/chris/RoVi_gazebo/devel/lib/pkgconfig/rotors_description.pc
+/home/chris/RoVi_gazebo/devel/.private/rotors_description/share/rotors_description/cmake/rotors_descriptionConfig.cmake /home/chris/RoVi_gazebo/devel/share/rotors_description/cmake/rotors_descriptionConfig.cmake
+/home/chris/RoVi_gazebo/devel/.private/rotors_description/share/rotors_description/cmake/rotors_descriptionConfig-version.cmake /home/chris/RoVi_gazebo/devel/share/rotors_description/cmake/rotors_descriptionConfig-version.cmake

@@ -1,0 +1,8 @@
+prefix=/home/chris/RoVi_gazebo/install
+
+Name: rqt_rotors
+Description: Description of rqt_rotors
+Version: 2.1.1
+Cflags: 
+Libs: -L/home/chris/RoVi_gazebo/install/lib 
+Requires: mavros_msgs rospy rqt_gui rqt_gui_py

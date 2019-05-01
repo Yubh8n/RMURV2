@@ -1,0 +1,3 @@
+[submodule "pythonProjects/markertracker/MarkerLocator"]
+	path = pythonProjects/markertracker/MarkerLocator
+	url = https://github.com/henrikmidtiby/MarkerLocator
