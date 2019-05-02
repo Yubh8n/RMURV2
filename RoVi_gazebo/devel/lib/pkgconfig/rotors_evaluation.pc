@@ -1,1 +1,0 @@
-/home/chris/RoVi_gazebo/devel/.private/rotors_evaluation/lib/pkgconfig/rotors_evaluation.pc

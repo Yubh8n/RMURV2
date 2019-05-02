@@ -1,8 +1,0 @@
-prefix=/home/chris/RoVi_gazebo/install
-
-Name: rotors_gazebo
-Description: Description of rotors_gazebo
-Version: 2.1.1
-Cflags: 
-Libs: -L/home/chris/RoVi_gazebo/install/lib 
-Requires: gazebo_msgs geometry_msgs mav_msgs roscpp sensor_msgs

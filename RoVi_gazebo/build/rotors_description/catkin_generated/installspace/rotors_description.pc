@@ -1,8 +1,0 @@
-prefix=/home/chris/RoVi_gazebo/install
-
-Name: rotors_description
-Description: Description of rotors_description
-Version: 2.1.1
-Cflags: 
-Libs: -L/home/chris/RoVi_gazebo/install/lib 
-Requires: 

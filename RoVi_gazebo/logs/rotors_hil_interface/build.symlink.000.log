@@ -1,5 +1,0 @@
-Symlinking /home/chris/RoVi_gazebo/devel/lib/librotors_hil_interface.so
-Symlinking /home/chris/RoVi_gazebo/devel/lib/pkgconfig/rotors_hil_interface.pc
-Symlinking /home/chris/RoVi_gazebo/devel/lib/rotors_hil_interface/rotors_hil_interface_node
-Symlinking /home/chris/RoVi_gazebo/devel/share/rotors_hil_interface/cmake/rotors_hil_interfaceConfig-version.cmake
-Symlinking /home/chris/RoVi_gazebo/devel/share/rotors_hil_interface/cmake/rotors_hil_interfaceConfig.cmake

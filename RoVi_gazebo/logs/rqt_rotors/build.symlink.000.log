@@ -1,6 +1,0 @@
-Symlinking /home/chris/RoVi_gazebo/devel/bin/hil_plugin
-Symlinking /home/chris/RoVi_gazebo/devel/bin/cmake.lock
-Symlinking /home/chris/RoVi_gazebo/devel/lib/python2.7/dist-packages/rqt_rotors/__init__.py
-Symlinking /home/chris/RoVi_gazebo/devel/lib/pkgconfig/rqt_rotors.pc
-Symlinking /home/chris/RoVi_gazebo/devel/share/rqt_rotors/cmake/rqt_rotorsConfig-version.cmake
-Symlinking /home/chris/RoVi_gazebo/devel/share/rqt_rotors/cmake/rqt_rotorsConfig.cmake

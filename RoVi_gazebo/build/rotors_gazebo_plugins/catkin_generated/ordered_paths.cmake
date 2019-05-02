@@ -1,1 +1,0 @@
-set(ORDERED_PATHS "/home/chris/RoVi_gazebo/devel/.private/rotors_control/lib;/opt/ros/melodic/lib")

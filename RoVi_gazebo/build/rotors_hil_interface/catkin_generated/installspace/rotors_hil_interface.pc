@@ -1,8 +1,0 @@
-prefix=/home/chris/RoVi_gazebo/install
-
-Name: rotors_hil_interface
-Description: Description of rotors_hil_interface
-Version: 2.1.1
-Cflags: -I/home/chris/RoVi_gazebo/install/include
-Libs: -L/home/chris/RoVi_gazebo/install/lib -lrotors_hil_interface
-Requires: geometry_msgs mav_msgs mavros mavros_msgs roscpp sensor_msgs

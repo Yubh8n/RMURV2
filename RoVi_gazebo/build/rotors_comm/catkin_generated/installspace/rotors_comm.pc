@@ -1,8 +1,0 @@
-prefix=/home/chris/RoVi_gazebo/install
-
-Name: rotors_comm
-Description: Description of rotors_comm
-Version: 2.1.1
-Cflags: -I/home/chris/RoVi_gazebo/install/include
-Libs: -L/home/chris/RoVi_gazebo/install/lib 
-Requires: message_runtime
