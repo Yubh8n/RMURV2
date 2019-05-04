@@ -57,7 +57,7 @@ class pos_node:
         self.lon = 0.0
         self.alt = 0.0
         self.gps_array = []
-        self.f = open("/home/chris/gps.txt", "w")
+        self.f = open("test.txt", "w")
 
         # launch node
         rospy.init_node('mavlink_lora_pos_simple', disable_signals=True)

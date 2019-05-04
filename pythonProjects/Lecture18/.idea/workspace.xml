@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b93eec10-8c7b-48c4-b03e-b320b864efd3" name="Default Changelist" comment="" />
+    <list default="true" id="b93eec10-8c7b-48c4-b03e-b320b864efd3" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lecture_18.py" beforeDir="false" afterPath="$PROJECT_DIR$/Lecture_18.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ros_catkin/src/mavlink_lora/scripts/Week_15_Get_Gps_coords.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../ros_catkin/src/mavlink_lora/scripts/Week_15_Get_Gps_coords.py" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,10 +17,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Lecture_18.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="214">
-              <caret line="111" column="22" selection-start-line="111" selection-start-column="22" selection-end-line="111" selection-end-column="22" />
+            <state relative-caret-position="1186">
+              <caret line="110" column="23" selection-start-line="110" selection-start-column="23" selection-end-line="110" selection-end-column="23" />
               <folding>
-                <element signature="e#0#16#0" expanded="true" />
+                <element signature="e#22#38#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -24,12 +28,15 @@
       </file>
     </leaf>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/../markertracker/MarkerLocator/documentation/pythonpic/MarkerTracker.py" />
-        <option value="$PROJECT_DIR$/Lecture_18.py" />
         <option value="$USER_HOME$/ros_workspace/src/cam_projcet/src/cam-maniputlation.py" />
+        <option value="$PROJECT_DIR$/Lecture_18.py" />
       </list>
     </option>
   </component>
@@ -38,11 +45,13 @@
     <option name="width" value="683" />
     <option name="height" value="678" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -59,11 +68,10 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$USER_HOME$/school/intro_To_Drones/Week15" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../RMUAST/Week15" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunDashboard">
@@ -149,7 +157,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.19600727" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.4043716" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39927405" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -197,10 +205,10 @@
     <entry file="file://$USER_HOME$/ros_workspace/src/cam_projcet/src/cam-maniputlation.py" />
     <entry file="file://$PROJECT_DIR$/Lecture_18.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
-          <caret line="111" column="22" selection-start-line="111" selection-start-column="22" selection-end-line="111" selection-end-column="22" />
+        <state relative-caret-position="1186">
+          <caret line="110" column="23" selection-start-line="110" selection-start-column="23" selection-end-line="110" selection-end-column="23" />
           <folding>
-            <element signature="e#0#16#0" expanded="true" />
+            <element signature="e#22#38#0" expanded="true" />
           </folding>
         </state>
       </provider>
