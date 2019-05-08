@@ -22,8 +22,6 @@
       <arg name="enable_ground_truth" value="$(arg enable_ground_truth)" />
       <arg name="log_file" value="$(arg log_file)"/>
     </include>
-    <!--<node name="joy_node" pkg="joy" type="joy_node" />-->
-    <!--<node name="rotors_joy_interface" pkg="rotors_joy_interface" type="rotors_joy_interface" />-->
     <node name="roll_pitch_yawrate_thrust_controller_node" pkg="rotors_control" type="roll_pitch_yawrate_thrust_controller_node" respawn="true" output="screen">
       <rosparam
         command="load" file="$(find rotors_gazebo)/resource/roll_pitch_yawrate_thrust_controller_$(arg mav_name).yaml" />
@@ -32,21 +30,24 @@
     </node>
   </group>
 
+
+
+
   <node name="temp_pid" pkg="pid" type="controller" output="screen" >
-      <param name="Kp" value="1.0" />
-      <param name="Ki" value="2.0" />
+      <param name="Kp" value="2.0" />
+      <param name="Ki" value="0.1" />
       <param name="Kd" value="5.0" />
-      <param name="upper_limit" value="1000" />
+      <param name="upper_limit" value="10" />
       <param name="lower_limit" value="-1000" />
-      <param name="windup_limit" value="100" />
+      <param name="windup_limit" value="10" />
     </node>
   <node name="translate_node" pkg="controller" type="translater.py" output="screen" >
     </node>
   <node name="setpoint_node" pkg="controller" type="setpoint.py" output="screen" />
 
   <!-- rqt_plot is a resource hog, so if you're seeing high CPU usage, don't launch rqt_plot  -->
-    <node name="rqt_plot" pkg="rqt_plot" type="rqt_plot" 
-    args="/control_effort/data /state/data /setpoint/data" />
+    <!--node name="rqt_plot" pkg="rqt_plot" type="rqt_plot" 
+    args="/control_effort/data /state/data /setpoint/data" /-->
 
 
   <group ns="pid_controllers">

@@ -28,9 +28,9 @@ class translate():
         self.humm_rotor_pub = rospy.Publisher("/hummingbird/command/roll_pitch_yawrate_thrust", RollPitchYawrateThrust, queue_size=10)
 
     def humming_sub(self, data):
-        Y_pos = Float64()
-        Y_pos.data = data.point.z
-        self.PID_Pub.publish(Y_pos)
+        Z_pos = Float64()
+        Z_pos.data = data.point.z
+        self.PID_Pub.publish(Z_pos)
 
     def roccallback(self, data):
         Y_pos = Point()

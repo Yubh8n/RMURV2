@@ -9,16 +9,15 @@ def publish():
     setpoint_publisher = rospy.Publisher("setpoint", Float64, queue_size=10)
     rate = rospy.Rate(0.1)
     value = Float64()
-    value.data = 10
+    value.data = 1
     while not rospy.is_shutdown():
-        if value.data == 10:
-            value.data = 20
+        if value.data == 1:
+            value.data = 2
         else:
-            value.data = 10
-            setpoint_publisher.publish(value)
-            setpoint_publisher.publish(value)
-            rate.sleep()
-
+            value.data = 1
+        #setpoint_publisher.publish(value)
+        #setpoint_publisher.publish(value)
+        rate.sleep()
 
 if __name__ == '__main__':
     try:
