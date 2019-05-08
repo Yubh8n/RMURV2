@@ -4,19 +4,20 @@ from std_msgs.msg import Float64
 import sys
 
 
-
-        
 def publish():
     rospy.init_node('setpoint', anonymous=True)
     setpoint_publisher = rospy.Publisher("setpoint", Float64, queue_size=10)
-    rate = rospy.Rate(0.2)
+    rate = rospy.Rate(0.1)
     value = Float64()
-    value.data = 100
+    value.data = 10
     while not rospy.is_shutdown():
-        setpoint_publisher.publish(value)
-        #value.data = -value.data
-        setpoint_publisher.publish(value)
-        rate.sleep()
+        if value.data == 10:
+            value.data = 20
+        else:
+            value.data = 10
+            setpoint_publisher.publish(value)
+            setpoint_publisher.publish(value)
+            rate.sleep()
 
 
 if __name__ == '__main__':
