@@ -39,30 +39,25 @@ class translate():
         pressure = sensor_msgs.msg.FluidPressure()
         pressure.fluid_pressure = data.fluid_pressure
         self.PIDz_Pub.publish(-pressure.fluid_pressure + 95460)
-        print(-pressure.fluid_pressure + 95460)
+        #print(-pressure.fluid_pressure + 95460)
     def angles(self, data):
         orientation_and_pose = sensor_msgs.msg.Imu()
         orientation_and_pose.orientation = data.orientation
         orientation_list = [data.orientation.x, data.orientation.y, data.orientation.z, data.orientation.w]
         (R, P, Y) = euler_from_quaternion(orientation_list)
         #print("Roll: ", degrees(R)," Pitch: ",degrees(P)," Yaw: ",degrees(Y))
-        self.PIDyaw_Pub.publish(Y)
-
+        self.PIDyaw_Pub.publish(0)
     def humming_sub(self, data):
         Z_pos = Float64()
         Z_pos.data = data.point.z - 95460
         #self.PIDz_Pub.publish(Z_pos)
-
-
     def pidyaw(self,data):
         self.yaw_control_effort.data = data.data
-
     def pidcallback(self, data):
         rotor_speed = RollPitchYawrateThrust()
         rotor_speed.yaw_rate = self.yaw_control_effort.data
         rotor_speed.thrust.z = float(data.data/10.) + 7.31
         self.humm_rotor_pub.publish(rotor_speed)
-
 
 def main(args):
     trans = translate()
