@@ -56,7 +56,7 @@
     noise_stddev="0.007"
     enable_visual="true">
     <box size="0.02 0.02 0.02" />
-    <origin xyz="0 0 -0.055" rpy="0.0 90.0 0.0" />
+    <origin xyz="0 0 -0.055" rpy="0.0 1.57079633 0.0" />
   </xacro:camera_macro>
 
 

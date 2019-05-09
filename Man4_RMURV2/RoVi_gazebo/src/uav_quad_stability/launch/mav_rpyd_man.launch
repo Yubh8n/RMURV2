@@ -1,6 +1,6 @@
 <launch>
   <arg name="mav_name" default="hummingbird"/>
-  <arg name="world_name" default="basic"/>
+  <arg name="world_name" default="Marker_world"/>
   <arg name="enable_logging" default="false" />
   <arg name="enable_ground_truth" default="true" />
   <arg name="log_file" default="$(arg mav_name)" />
@@ -8,7 +8,7 @@
   <env name="GAZEBO_MODEL_PATH" value="${GAZEBO_MODEL_PATH}:$(find rotors_gazebo)/models"/>
   <env name="GAZEBO_RESOURCE_PATH" value="${GAZEBO_RESOURCE_PATH}:$(find rotors_gazebo)/models"/>
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" value="$(find rotors_gazebo)/worlds/$(arg world_name).world"/>
+    <arg name="world_name" value="$(find controller)/Worlds/$(arg world_name).world"/>
     <!-- <arg name="debug" value="true"/> -->
     <arg name="paused" value="false"/>
     <!-- <arg name="gui" value="false"/> -->
@@ -28,7 +28,9 @@
       <rosparam command="load" file="$(find rotors_gazebo)/resource/$(arg mav_name).yaml" />
       <remap from="odometry" to="odometry_sensor1/odometry" />
     </node>
-  </group>
+      <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+      <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />  
+</group>
 
 
 
@@ -39,8 +41,8 @@
   <node name="setpoint_node" pkg="controller" type="setpoint.py" output="screen" />
 
   <!--rqt_plot is a resource hog, so if you're seeing high CPU usage, don't launch rqt_plot  -->
-    <node name="rqt_plot" pkg="rqt_plot" type="rqt_plot" 
-    args="/control_effort/data /state/data /setpoint/data" />
+    <!--node name="rqt_plot" pkg="rqt_plot" type="rqt_plot" 
+    args="/control_effort/data /state/data /setpoint/data" /-->
 
 
   <group ns="pid_controllers">
