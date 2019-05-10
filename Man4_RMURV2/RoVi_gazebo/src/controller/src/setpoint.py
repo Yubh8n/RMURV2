@@ -13,9 +13,9 @@ def publish():
     value = Float64()
     value.data = 1
     while not rospy.is_shutdown():
-        value.data = 40*11.4
-        setpoint_publisher.publish(value)
-        setpoint_publisher.publish(value)
+        #value.data = 40*11.4
+        #setpoint_publisher.publish(value)
+        #setpoint_publisher.publish(value)
         value.data = radians(45+8.64693171)
         #yawsetpoint_publisher.publish(value)
         #yawsetpoint_publisher.publish(value)

@@ -38,7 +38,7 @@
   <node name="marker_tracker" pkg="controller" type="marker_detector.py" output="screen"/>
   <node name="translate_node" pkg="controller" type="translater.py" output="screen" >
     </node>
-  <node name="setpoint_node" pkg="controller" type="setpoint.py" output="screen" />
+  <!--node name="setpoint_node" pkg="controller" type="setpoint.py" output="screen" /-->
 
   <!--rqt_plot is a resource hog, so if you're seeing high CPU usage, don't launch rqt_plot  -->
     <node name="rqt_plot" pkg="rqt_plot" type="rqt_plot" 
@@ -46,6 +46,15 @@
 
 
   <group ns="pid_controllers">
+    <!--node name="temp_pid" pkg="pid" ns="roll_controller" type="controller" output="screen" >
+      <param name="Kp" value="0.001" />
+      <param name="Ki" value="0.0" />
+      <param name="Kd" value="0.1" />
+      <param name="upper_limit" value="0.02" />
+      <param name="lower_limit" value="0.02" />
+      <param name="windup_limit" value="3.14" />
+    </node-->
+
     <node name="temp_pid" pkg="pid" ns="yaw_controller" type="controller" output="screen" >
       <param name="Kp" value="2.0" />
       <param name="Ki" value="0.0" />
@@ -56,6 +65,15 @@
       <param name="max_loop_frequency" value="100.0" />
       <param name="min_loop_frequency" value="100.0" />
       <param name="angle_error" value="true" />
+    </node>
+
+    <node name="temp_pid" pkg="pid" ns="pitch_controller" type="controller" output="screen" >
+      <param name="Kp" value="0.001" />
+      <param name="Ki" value="0.0" />
+      <param name="Kd" value="0.1" />
+      <param name="upper_limit" value="0.02" />
+      <param name="lower_limit" value="0.02" />
+      <param name="windup_limit" value="3.14" />
     </node>
 
     <node name="temp_pid" pkg="pid" ns="roll_controller" type="controller" output="screen" >
