@@ -3,7 +3,7 @@ import cv2 as cv
 import roslib
 import rospy
 import sys
-from sensor_msgs.msg import Image, Imu
+from sensor_msgs.msg import Image, Imu, FluidPressure
 from geometry_msgs.msg import Pose
 from cv_bridge import CvBridge, CvBridgeError
 import MarkerTracker
@@ -21,15 +21,16 @@ class reciever:
         self.pitchsetpoint_publisher= rospy.Publisher("/pid_controllers/pitch_controller/setpoint", Float64, queue_size=10)
         self.altitude_setpoint_publisher = rospy.Publisher("/pid_controllers/z_controller/setpoint", Float64, queue_size=10)
         self.IMU_sub = rospy.Subscriber("hummingbird/imu", Imu, self.angles)
-        self.odom_sub = rospy.Subscriber("/hummingbird/odometry_sensor1/pose", Pose, self.pose)
+        self.altimeter_sub = rospy.Subscriber("hummingbird/air_pressure", FluidPressure, self.height)
         self.bridge = CvBridge()
         self.image_pub = rospy.Publisher("analyzed_image", Image, queue_size=10)
-        self.dq = deque([0,0,0,0,0,0,0,0,0,0])
         self.angle = Float64()
         self.value = Float64()
         self.marker_xy = [0,0]
         self.RPY = [0,0,0]
-        self.position = [0,0,0]
+        self.marker_local_pos = [0,0]
+
+    def height(self, data):
 
     def pose(self, pose):
         orientation_list = [pose.orientation.x, pose.orientation.y, pose.orientation.z, pose.orientation.w]
@@ -42,13 +43,15 @@ class reciever:
         pass
 
     def marker_local_coordinates(self, img_midpoint, marker_xy, distance, angle):
-        print 'marker is at [x: %.3f y: %.3f] ' % (self.position[0] + ((distance*cos(angle+self.RPY[2]))/12.3), self.position[1] +
-                                                   ((distance*sin(angle+self.RPY[2]))/12.3))
+        #print 'marker is at [x: %.3f y: %.3f] ' % (self.position[0] + ((distance*cos(angle+self.RPY[2]))/12.3), self.position[1] +
+                                                   #((distance*sin(angle+self.RPY[2]))/12.3))
+        self.marker_local_pos = [self.position[0] + distance*cos(angle+self.RPY[2])/12.3, self.position[1] + (distance*sin(angle+self.RPY[2]))/12.3]
 
-        print 'own angle: %.3f' % (degrees(self.RPY[2]))
-        print 'Angle %.3f' % (degrees(angle))
-        print 'Angle minus own angle: %.3f' % (degrees(angle+self.RPY[2]))
+        print 'marker is at ', self.marker_local_pos
 
+        #print 'own angle: %.3f' % (degrees(self.RPY[2]))
+        #print 'Angle %.3f' % (degrees(angle))
+        #print 'Angle minus own angle: %.3f' % (degrees(angle+self.RPY[2]))
 
     def unit_vector(self, vector):
         if np.linalg.norm(vector) == 0:
@@ -56,10 +59,7 @@ class reciever:
         return vector / np.linalg.norm(vector)
 
     def approach(self, dist):
-        if dist > 100:
-            self.pitchsetpoint_publisher.publish(dist)
-        else:
-            self.pitchsetpoint_publisher.publish(0)
+        self.pitchsetpoint_publisher.publish(dist)
 
     def angle_between(self, v1, v2):
         v1_u = self.unit_vector(v1)
@@ -78,7 +78,6 @@ class reciever:
 
         self.value.data = 40 * 11.4
         self.altitude_setpoint_publisher.publish(self.value)
-        self.altitude_setpoint_publisher.publish(self.value)
 
         midpoint_y = (cv_image.shape[0])/2
         midpoint_x = (cv_image.shape[1])/2
@@ -90,24 +89,22 @@ class reciever:
         if float(tracker.quality) > 0.8:
             self.marker_xy[0] = tracker.pose.x
             self.marker_xy[1] = tracker.pose.y
-            dist = self.euclidean_dist((midpoint_x, midpoint_y), (tracker.pose.x, tracker.pose.y))
 
-            cv.circle(cv_image, (tracker.pose.x, tracker.pose.y), 10, (255, 0, 0), thickness=-1)
+            dist_img = self.euclidean_dist((midpoint_x, midpoint_y), (tracker.pose.x, tracker.pose.y))
+            cv.circle(cv_image, (tracker.pose.x, tracker.pose.y), 1, (255, 0, 0), thickness=-1)
             v1 = (midpoint_x-tracker.pose.x, midpoint_y-tracker.pose.y)
             v2 = (0, midpoint_y-tracker.pose.y)
-            print"V2 is: %3.f" % (v1[0])
 
             if v1[0] > 0:
                 self.angle = self.angle_between(v1,v2)
             else:
                 self.angle = -self.angle_between(v1,v2)
-            if abs(degrees(self.angle)) > 1:
-                self.yawsetpoint_publisher.publish(self.angle)
-            else:
-                if self.position[2] > 39:
-                    self.approach(dist)
-                    self.marker_local_coordinates((midpoint_x,midpoint_y), (tracker.pose.x, tracker.pose.y), dist, self.angle)
+            self.yawsetpoint_publisher.publish(self.angle)
 
+            if self.position[2] > 39:
+                print dist_img
+                self.approach(dist_img)
+                self.marker_local_coordinates((midpoint_x,midpoint_y), (tracker.pose.x, tracker.pose.y), dist_img, self.angle)
 
         cv.namedWindow("drone image", cv.WINDOW_NORMAL)
         cv.imshow("drone image", cv_image)
