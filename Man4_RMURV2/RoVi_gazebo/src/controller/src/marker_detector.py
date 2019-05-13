@@ -29,8 +29,13 @@ class reciever:
         self.marker_xy = [0,0]
         self.RPY = [0,0,0]
         self.marker_local_pos = [0,0]
+        self.altitude = 0
 
     def height(self, data):
+        pressure = FluidPressure()
+        pressure.fluid_pressure = (95460 - data.fluid_pressure)/10
+        height = pressure.fluid_pressure
+        print height
 
     def pose(self, pose):
         orientation_list = [pose.orientation.x, pose.orientation.y, pose.orientation.z, pose.orientation.w]
@@ -45,9 +50,9 @@ class reciever:
     def marker_local_coordinates(self, img_midpoint, marker_xy, distance, angle):
         #print 'marker is at [x: %.3f y: %.3f] ' % (self.position[0] + ((distance*cos(angle+self.RPY[2]))/12.3), self.position[1] +
                                                    #((distance*sin(angle+self.RPY[2]))/12.3))
-        self.marker_local_pos = [self.position[0] + distance*cos(angle+self.RPY[2])/12.3, self.position[1] + (distance*sin(angle+self.RPY[2]))/12.3]
-
-        print 'marker is at ', self.marker_local_pos
+        #self.marker_local_pos = [self.position[0] + distance*cos(angle+self.RPY[2])/12.3, self.position[1] + (distance*sin(angle+self.RPY[2]))/12.3]
+        pass
+        #print 'marker is at ', self.marker_local_pos
 
         #print 'own angle: %.3f' % (degrees(self.RPY[2]))
         #print 'Angle %.3f' % (degrees(angle))
@@ -76,8 +81,10 @@ class reciever:
             pass
             #print(e)
 
-        self.value.data = 40 * 11.4
+        self.value.data = 40 * 11.0
         self.altitude_setpoint_publisher.publish(self.value)
+
+
 
         midpoint_y = (cv_image.shape[0])/2
         midpoint_x = (cv_image.shape[1])/2
@@ -101,10 +108,9 @@ class reciever:
                 self.angle = -self.angle_between(v1,v2)
             self.yawsetpoint_publisher.publish(self.angle)
 
-            if self.position[2] > 39:
-                print dist_img
-                self.approach(dist_img)
-                self.marker_local_coordinates((midpoint_x,midpoint_y), (tracker.pose.x, tracker.pose.y), dist_img, self.angle)
+            print dist_img
+            self.approach(dist_img)
+            #self.marker_local_coordinates((midpoint_x,midpoint_y), (tracker.pose.x, tracker.pose.y), dist_img, self.angle)
 
         cv.namedWindow("drone image", cv.WINDOW_NORMAL)
         cv.imshow("drone image", cv_image)
