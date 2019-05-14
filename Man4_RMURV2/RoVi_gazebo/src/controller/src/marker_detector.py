@@ -19,6 +19,7 @@ class reciever:
         self.image_sub = rospy.Subscriber("hummingbird/camera_/image_raw", Image, self.callback)  # Image is not the image, but image from sensor_msgs.msgs
         self.yawsetpoint_publisher = rospy.Publisher("/pid_controllers/yaw_controller/setpoint", Float64, queue_size=10)
         self.pitchsetpoint_publisher= rospy.Publisher("/pid_controllers/pitch_controller/setpoint", Float64, queue_size=10)
+        self.rollsetpoint_publisher= rospy.Publisher("/pid_controllers/roll_controller/setpoint", Float64, queue_size=10)
         self.altitude_setpoint_publisher = rospy.Publisher("/pid_controllers/z_controller/setpoint", Float64, queue_size=10)
         self.IMU_sub = rospy.Subscriber("hummingbird/imu", Imu, self.angles)
         self.altimeter_sub = rospy.Subscriber("hummingbird/air_pressure", FluidPressure, self.height)
@@ -26,16 +27,19 @@ class reciever:
         self.image_pub = rospy.Publisher("analyzed_image", Image, queue_size=10)
         self.angle = Float64()
         self.value = Float64()
+        self.value.data = 40 * 10.999346831
         self.marker_xy = [0,0]
         self.RPY = [0,0,0]
         self.marker_local_pos = [0,0]
         self.altitude = 0
 
+
     def height(self, data):
         pressure = FluidPressure()
-        pressure.fluid_pressure = (95460 - data.fluid_pressure)/10
-        height = pressure.fluid_pressure
-        print height
+        pressure.fluid_pressure = (95459.97 - data.fluid_pressure)/10.99934
+        self.altitude = pressure.fluid_pressure
+        #print self.altitude
+
 
     def pose(self, pose):
         orientation_list = [pose.orientation.x, pose.orientation.y, pose.orientation.z, pose.orientation.w]
@@ -45,18 +49,13 @@ class reciever:
         self.position = [pose.position.x, pose.position.y, pose.position.z]
 
     def angles(self, data):
-        pass
-
-    def marker_local_coordinates(self, img_midpoint, marker_xy, distance, angle):
-        #print 'marker is at [x: %.3f y: %.3f] ' % (self.position[0] + ((distance*cos(angle+self.RPY[2]))/12.3), self.position[1] +
-                                                   #((distance*sin(angle+self.RPY[2]))/12.3))
-        #self.marker_local_pos = [self.position[0] + distance*cos(angle+self.RPY[2])/12.3, self.position[1] + (distance*sin(angle+self.RPY[2]))/12.3]
-        pass
-        #print 'marker is at ', self.marker_local_pos
-
-        #print 'own angle: %.3f' % (degrees(self.RPY[2]))
-        #print 'Angle %.3f' % (degrees(angle))
-        #print 'Angle minus own angle: %.3f' % (degrees(angle+self.RPY[2]))
+        orientation_and_pose = Imu()
+        orientation_and_pose.orientation = data.orientation
+        orientation_list = [data.orientation.x, data.orientation.y, data.orientation.z, data.orientation.w]
+        (R, P, Y) = euler_from_quaternion(orientation_list)
+        self.RPY[0] = degrees(R)
+        self.RPY[1] = degrees(P)
+        self.RPY[2] = degrees(Y)
 
     def unit_vector(self, vector):
         if np.linalg.norm(vector) == 0:
@@ -74,6 +73,14 @@ class reciever:
     def euclidean_dist(self, p1, p2):
         return sqrt((p1[0] - p2[0]) ** 2 + (p1[1] - p2[1]) ** 2)
 
+    def decent(self):
+        print "Setpoint Lower bound: " ,self.value.data, "Setpoint upper bound: ", self.value.data
+        print "Current altitude: ", self.altitude
+        if self.value.data/10 - 1 < self.altitude < self.value.data/10 + 1:
+            print "decending!"
+            self.value.data = self.value.data - 50
+
+
     def callback(self, data):
         try:
             cv_image = self.bridge.imgmsg_to_cv2(data, "bgr8")
@@ -81,10 +88,9 @@ class reciever:
             pass
             #print(e)
 
-        self.value.data = 40 * 11.0
         self.altitude_setpoint_publisher.publish(self.value)
 
-
+        print self.RPY
 
         midpoint_y = (cv_image.shape[0])/2
         midpoint_x = (cv_image.shape[1])/2
@@ -107,10 +113,16 @@ class reciever:
             else:
                 self.angle = -self.angle_between(v1,v2)
             self.yawsetpoint_publisher.publish(self.angle)
+            self.rollsetpoint_publisher.publish(self.angle)
 
-            print dist_img
-            self.approach(dist_img)
-            #self.marker_local_coordinates((midpoint_x,midpoint_y), (tracker.pose.x, tracker.pose.y), dist_img, self.angle)
+
+            #print dist_img
+            #print degrees(self.angle)
+            if degrees(abs(self.angle)) < 10:
+                self.approach(dist_img)
+                if dist_img < 100:
+                    #print "decending!"
+                    self.decent()
 
         cv.namedWindow("drone image", cv.WINDOW_NORMAL)
         cv.imshow("drone image", cv_image)

@@ -20,27 +20,17 @@ class translate():
         self.PIDroll_state = rospy.Publisher("pid_controllers/roll_controller/state", Float64, queue_size=10)
         self.PIDroll_Sub = rospy.Subscriber("pid_controllers/roll_controller/control_effort", Float64, self.pidroll)
         self.altimeter_sub = rospy.Subscriber("hummingbird/air_pressure", sensor_msgs.msg.FluidPressure, self.height)
-        self.odom_sub = rospy.Subscriber("/hummingbird/odometry_sensor1/pose", Pose, self.pose)
         self.humm_rotor_pub = rospy.Publisher("/hummingbird/command/roll_pitch_yawrate_thrust", RollPitchYawrateThrust,
                                               queue_size=10)
         self.yaw_control_effort = Float64()
         self.pitch_control_effort = Float64()
         self.roll_control_effort = Float64()
-        self.pose = Pose()
-
-    def pose(self, pose):
-        self.pose.position = pose.position
-        self.pose.orientation = pose.orientation
-
-    # get roll control effort from PID controller
-    def pidroll(self, data):
-        self.roll_control_effort.data = data.data
 
     # get pitch control effort from PID controller
     def pidpitch(self, data):
         self.pitch_control_effort.data = data.data
 
-    # get yaw control effort from PID controller
+    # get yaw control effort from PID controllerf
     def pidyaw(self, data):
         self.yaw_control_effort.data = data.data
 
@@ -68,7 +58,7 @@ class translate():
         rotor_speed.roll = self.roll_control_effort.data
         rotor_speed.yaw_rate = self.yaw_control_effort.data
         rotor_speed.pitch = self.pitch_control_effort.data
-        rotor_speed.thrust.z = float(data.data / 10.) + 7.31
+        rotor_speed.thrust.z = float(data.data / 10.99934) + 7.31
         self.humm_rotor_pub.publish(rotor_speed)
 
 
