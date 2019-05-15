@@ -107,7 +107,7 @@ class reciever:
     # publish the distance to the marker to approach.
     def approach(self, dist):
         if abs(dist) < -5:
-            # self.pitchsetpoint_publisher.publish(0)
+            self.pitchsetpoint_publisher.publish(0)
             # self.state = 2
             pass
         else:
@@ -146,7 +146,7 @@ class reciever:
             self.marker_pos(tracker.pose.x, tracker.pose.y)
 
             # Draw a circle at the tracker.
-            dist_img = (self.euclidean_dist((midpoint_x, midpoint_y), (self.marker_xy[0], self.marker_xy[1])))/(self.altitude-5)
+            dist_img = (self.euclidean_dist((midpoint_x, midpoint_y), (self.marker_xy[0], self.marker_xy[1])))/((self.altitude-5)*0.365932)
             print "marker x: ", self.marker_xy[1], " x midpoint of image: ", midpoint_y
             if self.marker_xy[1] > midpoint_y:
                 dist_img = - dist_img
