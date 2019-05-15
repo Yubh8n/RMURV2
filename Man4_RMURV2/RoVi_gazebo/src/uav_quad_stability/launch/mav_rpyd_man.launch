@@ -41,8 +41,8 @@
   <!--node name="setpoint_node" pkg="controller" type="setpoint.py" output="screen" /-->
 
   <!--rqt_plot is a resource hog, so if you're seeing high CPU usage, don't launch rqt_plot  -->
-    <!--node name="rqt_plot" pkg="rqt_plot" type="rqt_plot" 
-    args="/control_effort/data /state/data /setpoint/data" /-->
+    <node name="rqt_plot" pkg="rqt_plot" type="rqt_plot" 
+    args="/pid_controllers/pitch_controller/control_effort/data /pid_controllers/pitch_controller/state/data /pid_controllers/pitch_controller/setpoint/data" />
 
 
   <group ns="pid_controllers">
@@ -51,14 +51,14 @@
       <param name="Ki" value="0.0" />
       <param name="Kd" value="0.1" />
       <param name="upper_limit" value="0.02" />
-      <param name="lower_limit" value="0.02" />
+      <param name="lower_limit" value="-0.02" />
       <param name="windup_limit" value="3.14" />
     </node>
 
     <node name="temp_pid" pkg="pid" ns="yaw_controller" type="controller" output="screen" >
       <param name="Kp" value="2.0" />
       <param name="Ki" value="0.0" />
-      <param name="Kd" value="0.0" />
+      <param name="Kd" value="0.5" />
       <param name="upper_limit" value="3" />
       <param name="lower_limit" value="-3" />
       <param name="windup_limit" value="3.14" />
@@ -68,11 +68,11 @@
     </node>
 
     <node name="temp_pid" pkg="pid" ns="pitch_controller" type="controller" output="screen" >
-      <param name="Kp" value="0.001" />
-      <param name="Ki" value="0.0" />
+      <param name="Kp" value="0.01" />
+      <param name="Ki" value="0.0001" />
       <param name="Kd" value="0.1" />
-      <param name="upper_limit" value="0.02" />
-      <param name="lower_limit" value="0.02" />
+      <param name="upper_limit" value="0.1" />
+      <param name="lower_limit" value="-0.1" />
       <param name="windup_limit" value="3.14" />
     </node>
 

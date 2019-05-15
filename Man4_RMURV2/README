@@ -1,0 +1,6 @@
+To run this mandatory exercise do the following:
+
+cd RoVi_gazebo
+catkin build
+source devel/setup.bash
+roslaunch uav_quad_stability mav_rpyd_man.launch

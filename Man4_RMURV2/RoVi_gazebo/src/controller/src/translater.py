@@ -26,6 +26,10 @@ class translate():
         self.pitch_control_effort = Float64()
         self.roll_control_effort = Float64()
 
+    # get roll from drone
+    def pidroll(self, data):
+        self.roll_control_effort.data = data.data
+
     # get pitch control effort from PID controller
     def pidpitch(self, data):
         self.pitch_control_effort.data = data.data
