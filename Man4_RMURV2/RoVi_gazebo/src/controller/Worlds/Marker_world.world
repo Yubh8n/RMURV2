@@ -1,4 +1,3 @@
-<?xml version="1.0" ?>
 <sdf version='1.6'>
   <world name='default'>
     <light name='sun' type='directional'>
@@ -31,10 +30,7 @@
       <device>default</device>
     </audio>
     <wind/>
-	<!-- Only one ROS interface plugin is required per world, as any other plugin can connect a Gazebo
-         topic to a ROS topic (or vise versa). -->
-    <plugin name="ros_interface_plugin" filename="librotors_gazebo_ros_interface_plugin.so"/>
-
+    <plugin name='ros_interface_plugin' filename='librotors_gazebo_ros_interface_plugin.so'/>
     <spherical_coordinates>
       <surface_model>EARTH_WGS84</surface_model>
       <latitude_deg>0</latitude_deg>
@@ -44,34 +40,34 @@
     </spherical_coordinates>
     <state world_name='default'>
       <sim_time>223 349000000</sim_time>
-      <real_time>223 826179370</real_time>
-      <wall_time>1557393531 533057932</wall_time>
-      <iterations>223349</iterations>
+      <real_time>0 0</real_time>
+      <wall_time>1557902137 618938442</wall_time>
+      <iterations>0</iterations>
       <model name='asphalt_plane'>
-        <pose frame=''>-1.06209 0.745223 0 0 -0 0</pose>
+        <pose frame=''>0 0 0 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose frame=''>-1.06209 0.745223 0 0 -0 0</pose>
+          <pose frame=''>0 0 0 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
       <model name='rmurv2_marker'>
-        <pose frame=''>10.708 14.3389 5.0157 0 -0 0</pose>
+        <pose frame=''>2.99394 7.99673 1.02404 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='rmurv2_marker::rmurv2_marker::rmurv2_marker::rmurv2_marker::link'>
-          <pose frame=''>10.708 14.3389 5.0157 0 -0 0</pose>
+          <pose frame=''>2.99394 7.99673 1.02404 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
       <model name='unit_box'>
-        <pose frame=''>10.2324 6.46491 0.5 0 -0 0</pose>
+        <pose frame=''>3 8 0.5 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='unit_box::link'>
-          <pose frame=''>10.2324 6.46491 0.5 0 -0 0</pose>
+          <pose frame=''>3 8 0.5 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
@@ -184,6 +180,58 @@
       <allow_auto_disable>1</allow_auto_disable>
       <pose frame=''>-1.06209 0.745223 0 0 -0 0</pose>
     </model>
+    <model name='rmurv2_marker'>
+      <static>1</static>
+      <link name='rmurv2_marker::rmurv2_marker::rmurv2_marker::rmurv2_marker::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>3 3 0.05</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <cast_shadows>0</cast_shadows>
+          <geometry>
+            <box>
+              <size>3 3 0.05</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://rmurv2_marker/materials/scripts</uri>
+              <uri>model://rmurv2_marker/materials/textures</uri>
+              <name>vrc/marker</name>
+            </script>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>1</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose frame=''>8.29887 54.1392 0 0 -0 0</pose>
+    </model>
+    <gui fullscreen='0'>
+      <camera name='user_camera'>
+        <pose frame=''>11.8867 2.63851 19.6391 0 1.08764 2.84019</pose>
+        <view_controller>ortho</view_controller>
+        <projection_type>orthographic</projection_type>
+      </camera>
+    </gui>
     <model name='unit_box'>
       <link name='unit_box::link'>
         <inertial>
@@ -202,11 +250,11 @@
         <enable_wind>0</enable_wind>
         <kinematic>0</kinematic>
         <pose frame=''>0 0 0 0 -0 0</pose>
-        <gravity>0</gravity>
+        <gravity>1</gravity>
         <visual name='visual'>
           <geometry>
             <box>
-              <size>1 3 3</size>
+              <size>3 3 1</size>
             </box>
           </geometry>
           <material>
@@ -222,7 +270,7 @@
             <specular>0.01 0.01 0.01 1</specular>
             <emissive>0 0 0 1</emissive>
           </material>
-          <pose frame=''>0.5 8 3 0 -0 0</pose>
+          <pose frame=''>0 0 0 0 -0 0</pose>
           <transparency>0</transparency>
           <cast_shadows>1</cast_shadows>
         </visual>
@@ -284,59 +332,7 @@
       </link>
       <static>0</static>
       <allow_auto_disable>1</allow_auto_disable>
-      <pose frame=''>10.2324 6.46491 0.5 0 -0 0</pose>
+      <pose frame=''>0 0 0 0 -0 0</pose>
     </model>
-    <model name='rmurv2_marker'>
-      <static>1</static>
-      <link name='rmurv2_marker::rmurv2_marker::rmurv2_marker::rmurv2_marker::link'>
-        <collision name='collision'>
-          <geometry>
-            <box>
-              <size>3 3 0.05</size>
-            </box>
-          </geometry>
-          <max_contacts>10</max_contacts>
-          <surface>
-            <contact>
-              <ode/>
-            </contact>
-            <bounce/>
-            <friction>
-              <torsional>
-                <ode/>
-              </torsional>
-              <ode/>
-            </friction>
-          </surface>
-        </collision>
-        <visual name='visual'>
-          <pose frame=''>0 0 0 0 -0 0</pose>
-          <cast_shadows>0</cast_shadows>
-          <geometry>
-            <box>
-              <size>3 3 0.05</size>
-            </box>
-          </geometry>
-          <material>
-            <script>
-              <uri>model://rmurv2_marker/materials/scripts</uri>
-              <uri>model://rmurv2_marker/materials/textures</uri>
-              <name>vrc/marker</name>
-            </script>
-          </material>
-        </visual>
-        <self_collide>0</self_collide>
-        <enable_wind>1</enable_wind>
-        <kinematic>0</kinematic>
-      </link>
-      <pose frame=''>8.29887 54.1392 0 0 -0 0</pose>
-    </model>
-    <gui fullscreen='0'>
-      <camera name='user_camera'>
-        <pose frame=''>18.0229 13.4141 18.2432 0 1.08764 2.84019</pose>
-        <view_controller>ortho</view_controller>
-        <projection_type>orthographic</projection_type>
-      </camera>
-    </gui>
   </world>
 </sdf>

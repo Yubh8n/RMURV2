@@ -29,7 +29,7 @@ class reciever:
         self.image_pub = rospy.Publisher("analyzed_image", Image, queue_size=10)
         self.angle = Float64()
         self.value = Float64()
-        self.value.data = 40 * 10.999346831
+        self.value.data = 30 * 10.999346831
         self.marker_xy = [0,0]
         self.RPY = [0,0,0]
         self.marker_local_pos = [0,0]
